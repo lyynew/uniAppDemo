@@ -56,7 +56,10 @@
 					<navigator url="" class="more">More+</navigator>
 				</template>
 			</commonTitle>
-			
+			<view class="content">
+				<theme-item v-for="i in 8"></theme-item>
+				<theme-item :isMore="true"></theme-item>
+			</view>
 		</view>
 		
 	</view>
@@ -172,6 +175,14 @@ const nowTime = ref(Date.now())
 	.theme{
 		.more{
 			font-size: 32rpx;
+		}
+		.content{
+			margin-top: 30rpx;
+			padding: 0 30rpx;
+			
+			display: grid;
+			gap: 15rpx;
+			grid-template-columns: repeat(3,1fr);
 		}
 	}
 }
