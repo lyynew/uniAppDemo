@@ -1,0 +1,1 @@
+<view class="classifylayout pageBg data-v-6bcfa975"><view class="classify data-v-6bcfa975"><theme-item wx:for="{{a}}" wx:for-item="i" class="data-v-6bcfa975" u-i="{{i.a}}" bind:__l="__l"></theme-item></view></view>

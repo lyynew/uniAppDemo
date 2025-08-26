@@ -1,5 +1,5 @@
 <template>
-	<view class="homelayout">
+	<view class="homelayout  pageBg">
 		<view class="banner">
 			<swiper circular autoplay indicator-dots indicator-active-color="rgba(255,255,255)" indicator-color="rgba(255,255,255,0.5)">
 				<swiper-item v-for="item in bannerUrls">
@@ -110,9 +110,9 @@ const nowTime = ref(Date.now())
 			align-items: center;
 			justify-content: center;
 			text{
-				color: $uni-color-error;
-				font-weight: 100;
-				font-size: 28;
+				color: $brand-theme-color;
+				font-weight: 600;
+				font-size: 28rpx;
 			}
 		}
 		.center{

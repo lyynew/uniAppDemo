@@ -2,3 +2,17 @@ view,swiper,swiper-item{
 	
 	box-sizing: border-box;
 }
+.pageBg{
+	background: 
+	  linear-gradient(to bottom, 
+	    transparent, /* 上半区底部透明，让下层渐变显示 */
+	    rgba(255,255,255,0.8) , /* 下半区开始过渡变白 */
+	    white 600rpx /* 底部完全变白 */
+	  ),
+	  linear-gradient(to right, 
+	    #beecd8 20%, /* 左半区浅绿 */
+	    #f4e2d8  /* 右半区浅粉 */
+	  );
+	background-size: 100% 100%; /* 渐变覆盖整个元素 */
+	min-height: 80vh;
+}

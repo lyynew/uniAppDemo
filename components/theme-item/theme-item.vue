@@ -1,11 +1,11 @@
 <template>
 	<view class="themeItem">
-		<navigator url="" class="box" v-if="!isMore">
+		<navigator open-type="navigate" url="/pages/class-list/class-list" class="box" v-if="!isMore">
 			<image class="pic" src="/common/images/wallpaper/preview_small.webp" mode=""></image>
 			<view class="mask">萌宠照片</view>
 			<view class="tab">3天前更新</view>
 		</navigator>
-		<navigator url="" class="box more" v-if="isMore">
+		<navigator open-type="reLaunch" url="/pages/classify/classify" class="box more" v-if="isMore">
 			<image class="pic" src="/common/images/wallpaper/more.jpg" mode=""></image>
 			<view class="mask">
 				<uni-icons type="more-filled" size="34" color="#fff"></uni-icons>

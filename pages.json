@@ -19,6 +19,21 @@
 			{
 				"navigationBarTitleText" : "个人中心"
 			}
+		},
+		{
+			"path" : "pages/class-list/class-list",
+			"style" : 
+			{
+				"navigationBarTitleText" : "分类"
+			}
+		},
+		{
+			"path" : "pages/preview/preview",
+			"style" : 
+			{
+				"navigationBarTitleText" : "预览",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
@@ -26,10 +41,11 @@
 		"navigationBarTitleText": "瞬间视觉",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+		
 	},
 	"tabBar": {
 		"color": "#9799a5",
-		"selectedColor": "#28b389",
+		"selectedColor": "$brand-theme-color",
 		"list": [
 			{
 				"text": "推荐",
