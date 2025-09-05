@@ -1,9 +1,10 @@
 <template>
 	<view class="homelayout  pageBg">
+		<custom-nav-bar>推荐</custom-nav-bar>
 		<view class="banner">
 			<swiper circular autoplay indicator-dots indicator-active-color="rgba(255,255,255)" indicator-color="rgba(255,255,255,0.5)">
-				<swiper-item v-for="item in bannerUrls">
-					<image :src="item" mode="widthFix"></image>
+				<swiper-item v-for="item in bannerUrls" :key="item._id">
+					<image :src="item.picurl" mode="widthFix"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -16,8 +17,8 @@
 			</view>
 			<view class="center">
 				<swiper vertical circular autoplay>
-					<swiper-item v-for="i in 3">
-						66666666666666666666666666666666666666
+					<swiper-item v-for="i in noticeList" :key='i._id'>
+						{{i.title}}
 					</swiper-item>
 				</swiper>
 				
@@ -35,15 +36,17 @@
 				<template #custom>
 					<view class="time">
 						<uni-icons type="calendar-filled" size="30"></uni-icons>
-						<uni-dateformat :date="nowTime" format="dd"></uni-dateformat>
+						<uni-dateformat :date="Date.now()" format="dd"></uni-dateformat>
 						<i>号</i>
 					</view>
 				</template>
 			</commonTitle>
 			<view class="content">
 				<scroll-view scroll-x >
-					<view class="box" v-for="i in 10">
-						<image src="/common/images/wallpaper/preview_small.webp" mode="aspectFill"></image>
+					<view class="box" v-for="i in dayRandomUrls" @click="goPreview" :key="i._id">
+						
+							<image :src="i.smallPicurl" mode="aspectFill"></image>
+						
 					</view>
 				</scroll-view>
 			</view>
@@ -57,7 +60,7 @@
 				</template>
 			</commonTitle>
 			<view class="content">
-				<theme-item v-for="i in 8"></theme-item>
+				<theme-item v-for="i in classifyList" :key="i._id" :item='i'></theme-item>
 				<theme-item :isMore="true"></theme-item>
 			</view>
 		</view>
@@ -66,13 +69,60 @@
 </template>
 
 <script setup>
-
 import { ref } from 'vue';
+import {apiGetBanner, apiGetDayRandom, apiGetNoticeList,apiGetClassify} from '@/api/apis.js'
+const bannerUrls = ref([])
+const dayRandomUrls = ref([])
+const noticeList = ref([])
+const classifyList = ref([])
 
+const getBanner = async () => {
+  try {
+    let res = await apiGetBanner()
+	bannerUrls.value = res.data;
+  } catch (err) {
+		console.error('请求出错:', err);
+  }
+};
 
-const bannerUrls = ref(['/common/images/banner/banner1.jpg','/common/images/banner/banner2.jpg','/common/images/banner/banner3.jpg'])
-const nowTime = ref(Date.now())	
-	
+const getDayRandom = async () => {
+  try {
+    let res = await apiGetDayRandom()
+	dayRandomUrls.value = res.data;
+  } catch (err) {
+		console.error('请求出错:', err);
+  }
+};
+
+const getNoticeList = async ()=>{
+	try {
+		let res = await apiGetNoticeList({select:true})
+		noticeList.value = res.data
+	} catch (err) {
+		console.error('请求出错:', err);
+	}
+}
+
+const getClassify = async ()=>{
+	try {
+		let res = await apiGetClassify({select:true})
+		console.log(res)
+		classifyList.value = res.data
+	} catch (err) {
+		console.error('请求出错:', err);
+	}
+}
+
+const goPreview = ()=>{
+	uni.navigateTo({
+		url:'/pages/preview/preview'
+	})
+}
+
+getClassify()
+getDayRandom()
+getBanner()
+getNoticeList()
 </script>
 
 <style lang="scss" scoped>

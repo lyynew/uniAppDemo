@@ -1,12 +1,17 @@
 <template>
 	<view class="themeItem">
-		<navigator open-type="navigate" url="/pages/class-list/class-list" class="box" v-if="!isMore">
-			<image class="pic" src="/common/images/wallpaper/preview_small.webp" mode=""></image>
-			<view class="mask">萌宠照片</view>
-			<view class="tab">3天前更新</view>
+		<navigator 
+		  open-type="navigate" 
+		  :url="`/pages/class-list/class-list?classid=${item._id}&name=${item.name}`" 
+		  class="box" 
+		  v-if="!isMore"
+		>
+		  <image class="pic" :src="item.picurl" mode=""></image>
+		  <view class="mask">{{item.name}}</view>
+		  <view class="tab">{{formatTime(item.updateTime)}}前更新</view>
 		</navigator>
 		<navigator open-type="reLaunch" url="/pages/classify/classify" class="box more" v-if="isMore">
-			<image class="pic" src="/common/images/wallpaper/more.jpg" mode=""></image>
+			<image class="pic" :src="item.picurl" mode=""></image>
 			<view class="mask">
 				<uni-icons type="more-filled" size="34" color="#fff"></uni-icons>
 				<view class="text">
@@ -18,14 +23,28 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import {formatTime} from '@/utils/common.js';
 defineProps({
 	isMore:{
 		type:Boolean,
 		default:false
-	}
+	},
+	item:{
+		type:Object,
+		default(){
+			return{
+				name:'默认名称',
+				picurl:'../../common/images/wallpaper/classify1.jpg',
+				updateTime:Date.now() - 1000*60*60*5
+			}
+		}
+	},
 })
-	
+
+
 </script>
+
 
 <style lang="scss" scoped>
 .themeItem{
