@@ -1,21 +1,24 @@
 <template>
-	<view class="userLayout  pageBg">
+	<view class="userLayout  pageBg" v-if="userinfo">
+		<view :style="{height:getNavBarHeight() + 'px'}"> 
+		  
+		</view>
 		<view class="userInfo">
 			<view class="avatar">
 				<image src="/static/logo.png" mode=""></image>
 			</view>
 			<view class="ip">
-				123456
+				{{userinfo.IP}}
 			</view>
 			<view class="address">
-				来自于：河南
+				来自于：{{userinfo.address.city ||userinfo.address.province || userinfo.address.country}}
 			</view>
 		</view>	
 		
 		<view class="section">
 			<view class="list">
 				
-				<view class="row">
+				<view class="row" @click="myDownload">
 					<view class="left">
 						<uni-icons type="download-filled" size="20" ></uni-icons>
 						<view class="text">
@@ -24,7 +27,7 @@
 					</view>
 					<view class="right">
 						<view class="text">
-							0
+							{{userinfo.downloadSize}}
 						</view>
 						<uni-icons type="right" size="15" color="#aaas"></uni-icons>
 						
@@ -32,7 +35,7 @@
 				</view>
 			
 				
-				<view class="row">
+				<view class="row" @click="myScore">
 					<view class="left">
 						<uni-icons type="chatbubble-filled" size="20" ></uni-icons>
 						<view class="text">
@@ -41,7 +44,7 @@
 					</view>
 					<view class="right">
 						<view class="text">
-							2
+							{{userinfo.scoreSize}}
 						</view>
 						<uni-icons type="right" size="15" color="#aaas"></uni-icons>
 						
@@ -107,10 +110,21 @@
 			</view>
 		</view>
 	</view>
+	<view class="loadingLayout">
+		<<uni-load-more status="loading"></uni-load-more>
+		
+	</view>
 </template>
 
 <script setup>
-	
+
+import {getNavBarHeight} from '@/utils/system.js'
+import {apiUserInfo} from '@/api/apis.js'
+import { ref } from 'vue'
+
+const userinfo = ref(null)
+
+console.log(getNavBarHeight())
 function clickContact(){
 	uni.showModal({
 		title:'客服电话',
@@ -119,6 +133,30 @@ function clickContact(){
 	})
 }
 	
+
+const getUserInfo = async()=>{
+	apiUserInfo().then(res=>{
+		console.log(res)
+		userinfo.value = res.data
+		console.log(userinfo.value)
+	})
+	console.log(userinfo.value)
+
+}
+
+const myScore = ()=>{
+	uni.navigateTo({
+		url:'/pages/class-list/class-list?name=我的评分&type=score'
+	})
+}
+
+const myDownload = ()=>{
+	uni.navigateTo({
+		url:'/pages/class-list/class-list?name=我的下载&type=download'
+	})
+}
+
+getUserInfo()
 </script>
 
 <style lang="scss" scoped>

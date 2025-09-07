@@ -2,7 +2,7 @@
 	<view class="preview">
 		<swiper circular :current="currentIndex" @change="swiperChange">
 			<swiper-item v-for="(i,index) in classLsit" :key='i._id'>
-				<image v-if='readImags.includes(index)' @click="maskChange" :src="i.picurl" mode="aspectFit"></image>
+				<image v-if='readImags.includes(index)' @click="maskChange" :src="i.picurl" mode="aspectFill"></image>
 				{{readImags}}
 			</swiper-item>
 		</swiper>
@@ -33,7 +33,7 @@
 						{{currentInfo.score}}分
 					</view>
 				</view>
-				<view class="box">
+				<view class="box" @click="clickDownload">
 					<uni-icons type="download" size="28"></uni-icons>
 					<view class="text">
 						下载
@@ -212,6 +212,21 @@ const submitScore = async ()=>{
 
 const goBack = ()=>{
 	uni.navigateBack()
+}
+
+// 下载图片
+const clickDownload = ()=> {
+	// #ifdef H5
+	uni.showModal({
+		content:'长按保存壁纸',
+		showCancel:false
+	})
+	// #endif
+	
+	// #ifndef
+	uni.saveImageToPhotosAlbum({
+		filePath:currentInfo.value.picurl
+	})
 }
 
 

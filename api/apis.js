@@ -23,3 +23,13 @@ export function apiGetClassList(data={}){
 export function apiGetSetUpScore(data={}){
 	return request({url:'/setupScore',data})
 }
+
+// 获取用户信息
+export function apiUserInfo(data={}){
+	return request({url:'/userInfo',data})
+}
+
+// 获取评分，下载历史
+export function apiGetHistoryList(data={}){
+	return request({url:'/userWallList',data})
+}

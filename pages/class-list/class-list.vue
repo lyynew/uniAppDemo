@@ -25,8 +25,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import {apiGetClassList} from '@/api/apis.js'
-import { onLoad,onReachBottom} from '@dcloudio/uni-app'
+import {apiGetClassList,apiGetHistoryList} from '@/api/apis.js'
+import { onLoad,onUnload,onReachBottom} from '@dcloudio/uni-app'
 
 const classList = ref([])
 const noData = ref(false)
@@ -35,8 +35,9 @@ const queryParams = {classid:'',pageNum:1,pageSize:12}
 // 接受参数,并请求数据
 onLoad((options) => {
   // options 中包含所有传递过来的参数
-  let {classid=null,name=null} = options
-  queryParams.classid = options.classid
+  let {classid=null,name=null,type=null} = options
+  if(type)queryParams.type = type
+  if(classid)queryParams.classid=classid
   console.log('接收的参数id:', options)
   uni.setNavigationBarTitle({
   	title:name
@@ -47,7 +48,10 @@ onLoad((options) => {
 
 // 请求分类列表
 const getClassList = async()=>{
-	let res = await apiGetClassList(queryParams)
+	let res;
+	if(queryParams.classid) res = await apiGetClassList(queryParams)
+	if(queryParams.type) res = await apiGetHistoryList(queryParams)
+
 	classList.value.push(...res.data)  //...将一个可迭代对象"展开" ,再通过push加入classList列表
 	
 	//判断获取到的数据是否是最后一页，来判断是否禁止触底请求
@@ -64,6 +68,9 @@ onReachBottom(()=>{
 	getClassList()
 })
 
+onUnload(()=>{
+	uni.removeStorageSync('storageClassList')
+})
 
 </script>
 

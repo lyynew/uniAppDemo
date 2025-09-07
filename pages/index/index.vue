@@ -71,6 +71,7 @@
 <script setup>
 import { ref } from 'vue';
 import {apiGetBanner, apiGetDayRandom, apiGetNoticeList,apiGetClassify} from '@/api/apis.js'
+import {onShareAppMessage} from '@dcloudio/uni-app'
 const bannerUrls = ref([])
 const dayRandomUrls = ref([])
 const noticeList = ref([])
@@ -118,6 +119,17 @@ const goPreview = ()=>{
 		url:'/pages/preview/preview'
 	})
 }
+
+// #ifndef H5
+onShareAppMessage((e)=>{
+	return{
+		title:'瞬间视觉',
+		path:'/pages/classify/classify'
+		
+	}
+})
+// #endif
+
 
 getClassify()
 getDayRandom()

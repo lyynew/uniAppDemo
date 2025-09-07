@@ -17,4 +17,10 @@ view, swiper, swiper-item {
   background-size: 100% 100%;
   /* 渐变覆盖整个元素 */
   min-height: 80vh;
+}
+.loadingLayout {
+  padding: 30rpx 0;
+}
+.safe-area-inset-bottom {
+  height: 25rpx;
 }page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display: none !important;}

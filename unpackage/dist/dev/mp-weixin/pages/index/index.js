@@ -29,7 +29,7 @@ const _sfc_main = {
         let res = await api_apis.apiGetBanner();
         bannerUrls.value = res.data;
       } catch (err) {
-        common_vendor.index.__f__("error", "at pages/index/index.vue:84", "请求出错:", err);
+        common_vendor.index.__f__("error", "at pages/index/index.vue:85", "请求出错:", err);
       }
     };
     const getDayRandom = async () => {
@@ -37,7 +37,7 @@ const _sfc_main = {
         let res = await api_apis.apiGetDayRandom();
         dayRandomUrls.value = res.data;
       } catch (err) {
-        common_vendor.index.__f__("error", "at pages/index/index.vue:93", "请求出错:", err);
+        common_vendor.index.__f__("error", "at pages/index/index.vue:94", "请求出错:", err);
       }
     };
     const getNoticeList = async () => {
@@ -45,16 +45,16 @@ const _sfc_main = {
         let res = await api_apis.apiGetNoticeList({ select: true });
         noticeList.value = res.data;
       } catch (err) {
-        common_vendor.index.__f__("error", "at pages/index/index.vue:102", "请求出错:", err);
+        common_vendor.index.__f__("error", "at pages/index/index.vue:103", "请求出错:", err);
       }
     };
     const getClassify = async () => {
       try {
         let res = await api_apis.apiGetClassify({ select: true });
-        common_vendor.index.__f__("log", "at pages/index/index.vue:109", res);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:110", res);
         classifyList.value = res.data;
       } catch (err) {
-        common_vendor.index.__f__("error", "at pages/index/index.vue:112", "请求出错:", err);
+        common_vendor.index.__f__("error", "at pages/index/index.vue:113", "请求出错:", err);
       }
     };
     const goPreview = () => {
@@ -62,6 +62,12 @@ const _sfc_main = {
         url: "/pages/preview/preview"
       });
     };
+    common_vendor.onShareAppMessage((e) => {
+      return {
+        title: "瞬间视觉",
+        path: "/pages/classify/classify"
+      };
+    });
     getClassify();
     getDayRandom();
     getBanner();
@@ -121,5 +127,6 @@ const _sfc_main = {
   }
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
+_sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/index/index.js.map
